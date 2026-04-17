@@ -11,6 +11,7 @@ from storage.memory.memory_saver import get_memory_saver
 from tools.paper_import_tool import import_user_paper
 from tools.style_analyzer_tool import analyze_user_writing_style
 from tools.personalized_paper_generator_tool import generate_personalized_paper
+from tools.pdf_import_tool import import_pdf_paper_from_url
 
 LLM_CONFIG = "config/agent_llm_config.json"
 
@@ -52,6 +53,7 @@ def build_agent(ctx=None):
     # 注册所有工具
     tools_list = [
         import_user_paper,
+        import_pdf_paper_from_url,  # 新增PDF导入工具
         analyze_user_writing_style,
         generate_personalized_paper
     ]
