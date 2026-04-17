@@ -8,6 +8,9 @@ from langgraph.graph.message import add_messages
 from langchain_core.messages import AnyMessage
 from coze_coding_utils.runtime_ctx.context import default_headers
 from storage.memory.memory_saver import get_memory_saver
+from tools.paper_import_tool import import_user_paper
+from tools.style_analyzer_tool import analyze_user_writing_style
+from tools.personalized_paper_generator_tool import generate_personalized_paper
 
 LLM_CONFIG = "config/agent_llm_config.json"
 
@@ -46,10 +49,17 @@ def build_agent(ctx=None):
         default_headers=default_headers(ctx) if ctx else {}
     )
 
+    # 注册所有工具
+    tools_list = [
+        import_user_paper,
+        analyze_user_writing_style,
+        generate_personalized_paper
+    ]
+
     return create_agent(
         model=llm,
         system_prompt=cfg.get("sp"),
-        tools=[],
+        tools=tools_list,
         checkpointer=get_memory_saver(),
         state_schema=AgentState,
     )
