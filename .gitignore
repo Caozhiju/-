@@ -10,7 +10,11 @@ __pycache__/
 *.a
 /vendor
 *.egg-info/
-/.env
+/# 敏感配置文件
+.env
+.streamlit/secrets.toml
+*.pem
+*.key
 .env
 
 # 视频文件
