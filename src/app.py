@@ -1,62 +1,62 @@
-import os
-import sys
-import streamlit as st
-from langchain_core.messages import HumanMessage, AIMessage
+import   进口   进口的 os
+import   进口   导入系统 sys
+import   进口   将streamlit导入为st streamlit as   作为 st
+from从langchain_core。消息导入HumanMessage， AIMessage   从 langchain_core.messages   消息   消息 import   进口   进口 HumanMessage, AIMessage
 
 # 添加项目根目录到 Python 路径
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.sys   路径.path。插入(0,os.path   路径.dirname (os.path   路径.dirname (os.path   路径.abspath (__file__))))path.insert   插入(0, os.path   路径.dirname(os.path   路径.dirname(os.path   路径.abspath(__file__))))
 
-from agents.agent import build_agent
+from从代理。Agent导入build_agent agents.   从agent import   进口 build_agent
 
 # 页面配置
 st.set_page_config(
     page_title="国际中文教育论文助手",
-    page_icon="📚",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    page_icon=   page_icon="📚","📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚"   "📚",
+    layout=   布局=“wide","wide   "wide"",   “,   “,
+    initial_sidebar_state=initial_sidebar_state =“expanded""expanded"   "expanded"
 )
 
-# 初始化 session state
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+# 初始化 session state如果messages"；不在st.session_state：   如果
+if "messages" not in st.session_state:如果messages"；不在st.session_state：
+    st.session_state.messages = []如果"；agent"；不在st.session_state中：   如果
 
-if "agent" not in st.session_state:
-    st.session_state.agent = None
+if "agent" not in st.session_state:如果"；agent"；不在st.session_state中：
+    st.session_state.agent = None如果thread_id不在st.session_state中：   如果
 
-if "thread_id" not in st.session_state:
-    st.session_state.thread_id = "session_001"
+if "thread_id" not in st.session_state:如果thread_id不在st.session_state中：
+    st.session_state.thread_id = "session_001"st.session_state。Thread_id = "session_001"；st.session_state。Thread_id = "session_001"st.session_state。Thread_id = "session_001"；
 
 
 def init_agent():
-    """初始化 Agent"""
-    if st.session_state.agent is None:
-        with st.spinner("正在初始化智能体..."):
-            try:
-                st.session_state.agent = build_agent()
-                return True
-            except Exception as e:
-                st.error(f"初始化失败: {str(e)}")
-                return False
-    return True
+    """初始化 Agent"""   """初始化 Agent""""""初始化 Agent"""   """初始化 Agent"""
+    if st.session_state.agent is None:   """初始化 Agent"""
+        with st.spinner("正在初始化智能体..."):with st.spinner("正在初始化智能体..."):
+            try:   试一试:
+                st.session_state.agent = build_agent()   试一试:st.session_state。Agent = build_agent（）
+                return True   还真
+            except Exception as e:   例外情况如下：
+                st.error(f"初始化失败: {str(e)}")st.error(f"初始化失败: {str(e)}")
+                return False   返回假
+    return True   还真
 
 
 def main():
     # 侧边栏
-    with st.sidebar:
-        st.title("📚 论文助手")
-        st.markdown("---")
-        mode = st.selectbox(
+    with st.sidebar:   st.sidebar:
+        st.title("📚 论文助手")   st.title("📚 论文助手")
+        st.markdown("---")   st.markdown(“-”)
+        mode = st.selectbox(   Mode = st。
             "选择功能",
             ["💬 智能对话", "📝 论文写作", "✨ 论文润色", "🔍 论文审稿", "🎓 风格学习"],
         )
-        st.markdown("---")
+        st.markdown("---")   st.markdown(“-”)
         
-        uploaded_file = st.file_uploader(
+        uploaded_file = st.file_uploader(Uploaded_file = st.file_uploader(
             "上传论文（学习风格）",
-            type=["pdf", "txt"],
+            type=["pdf", "txt"],   type=["pdf", "txt"],
         )
         
-        if uploaded_file:
+        if uploaded_file:   如果uploaded_file:
             if st.button("📤 学习风格", type="primary"):
                 with st.spinner("正在分析论文..."):
                     save_path = f"assets/{uploaded_file.name}"
